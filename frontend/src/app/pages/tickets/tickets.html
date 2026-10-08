@@ -1,0 +1,846 @@
+<div class="tickets-page">
+
+  <!-- ===================================================== -->
+  <!-- VUE LISTE DES TICKETS -->
+  <!-- ===================================================== -->
+
+  @if (!showForm && !showDetails) {
+
+    <!-- ========================= -->
+    <!-- EN-TÊTE -->
+    <!-- ========================= -->
+
+    <div class="page-header">
+
+      <div>
+        <h1>Tickets de maintenance</h1>
+
+        <p>
+          Suivez, analysez et gérez les demandes de maintenance.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="btn-primary"
+        [disabled]="creating || updating"
+        (click)="ouvrirFormulaire()">
+
+        + Nouveau ticket
+
+      </button>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- MESSAGE DE SUCCÈS -->
+    <!-- ========================= -->
+
+    @if (success) {
+
+      <div class="success-message">
+
+        {{ success }}
+
+      </div>
+
+    }
+
+
+    <!-- ========================= -->
+    <!-- MESSAGE D'ERREUR -->
+    <!-- ========================= -->
+
+    @if (error) {
+
+      <div class="error-message">
+
+        {{ error }}
+
+      </div>
+
+    }
+
+
+    <!-- ========================= -->
+    <!-- STATISTIQUES -->
+    <!-- ========================= -->
+
+    <div class="stats">
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          #
+        </div>
+
+        <div>
+
+          <span>Total des tickets</span>
+
+          <strong>
+            {{ tickets.length }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          ✓
+        </div>
+
+        <div>
+
+          <span>Gestion</span>
+
+          <strong>
+            TMA
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          !
+        </div>
+
+        <div>
+
+          <span>Priorité</span>
+
+          <strong>
+            Active
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- SECTION TICKETS -->
+    <!-- ========================= -->
+
+    <div class="tickets-section">
+
+      <div class="section-header">
+
+        <h2>
+          Tickets de maintenance
+        </h2>
+
+      </div>
+
+
+      <!-- ========================= -->
+      <!-- TABLEAU -->
+      <!-- ========================= -->
+
+      @if (tickets.length > 0) {
+
+        <div class="tickets-table">
+
+          <!-- EN-TÊTE -->
+
+          <div class="table-header">
+
+            <div class="col-id">
+              #
+            </div>
+
+            <div class="col-title">
+              Titre
+            </div>
+
+            <div class="col-description">
+              Description
+            </div>
+
+            <div class="col-status">
+              Statut
+            </div>
+
+            <div class="col-priority">
+              Priorité
+            </div>
+
+            <div class="col-date">
+              Date
+            </div>
+
+            <div class="col-actions">
+              Actions
+            </div>
+
+          </div>
+
+
+          <!-- ========================= -->
+          <!-- LIGNES -->
+          <!-- ========================= -->
+
+          @for (ticket of tickets; track ticket.id) {
+
+            <div class="table-row">
+
+              <!-- ID -->
+
+              <div class="col-id">
+
+                #{{ ticket.id }}
+
+              </div>
+
+
+              <!-- TITRE -->
+
+              <div class="col-title">
+
+                <strong>
+                  {{ ticket.titre }}
+                </strong>
+
+              </div>
+
+
+              <!-- DESCRIPTION -->
+
+              <div class="col-description">
+
+                {{ ticket.description }}
+
+              </div>
+
+
+              <!-- STATUT -->
+
+              <div class="col-status">
+
+                <span class="badge status-badge">
+
+                  {{ ticket.statut }}
+
+                </span>
+
+              </div>
+
+
+              <!-- PRIORITÉ -->
+
+              <div class="col-priority">
+
+                <span class="badge priority-badge">
+
+                  {{ ticket.priorite }}
+
+                </span>
+
+              </div>
+
+
+              <!-- DATE -->
+
+              <div class="col-date">
+
+                {{ ticket.created_at | date:'dd/MM/yyyy HH:mm' }}
+
+              </div>
+
+
+              <!-- ACTIONS -->
+
+              <div class="col-actions">
+
+                <button
+                  type="button"
+                  class="btn-action btn-details"
+                  title="Voir les détails"
+                  aria-label="Voir les détails du ticket"
+                  (click)="voirDetails(ticket)">
+
+                  👁️
+
+                </button>
+
+
+                <button
+                  type="button"
+                  class="btn-action btn-edit"
+                  title="Modifier le ticket"
+                  aria-label="Modifier le ticket"
+                  [disabled]="creating || updating"
+                  (click)="modifierTicket(ticket)">
+
+                  ✏️
+
+                </button>
+
+
+                <button
+                  type="button"
+                  class="btn-action btn-delete"
+                  title="Supprimer le ticket"
+                  aria-label="Supprimer le ticket"
+                  [disabled]="creating || updating"
+                  (click)="supprimerTicket(ticket)">
+
+                  🗑️
+
+                </button>
+
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+      }
+
+
+      <!-- ========================= -->
+      <!-- ÉTAT VIDE -->
+      <!-- ========================= -->
+
+      @if (tickets.length === 0 && !loading) {
+
+        <div class="empty-state">
+
+          <div class="empty-icon">
+            +
+          </div>
+
+          <h3>
+            Aucun ticket disponible
+          </h3>
+
+          <p>
+            Aucun ticket de maintenance n'a encore été créé.
+          </p>
+
+          <button
+            type="button"
+            class="btn-primary"
+            (click)="ouvrirFormulaire()">
+
+            + Créer le premier ticket
+
+          </button>
+
+        </div>
+
+      }
+
+
+      <!-- ========================= -->
+      <!-- CHARGEMENT -->
+      <!-- ========================= -->
+
+      @if (loading) {
+
+        <div class="loading-state">
+
+          <div class="loading-spinner"></div>
+
+          <p>
+            Chargement des tickets...
+          </p>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+
+  <!-- ===================================================== -->
+  <!-- VUE CRÉATION / MODIFICATION -->
+  <!-- ===================================================== -->
+
+  @if (showForm) {
+
+    <div class="form-page">
+
+      <!-- ========================= -->
+      <!-- RETOUR -->
+      <!-- ========================= -->
+
+      <button
+        type="button"
+        class="back-button"
+        [disabled]="creating || updating"
+        (click)="fermerFormulaire()">
+
+        ← Retour aux tickets
+
+      </button>
+
+
+      <!-- ========================= -->
+      <!-- CARTE FORMULAIRE -->
+      <!-- ========================= -->
+
+      <div class="ticket-form-card">
+
+        <!-- EN-TÊTE -->
+
+        <div class="form-header">
+
+          <div>
+
+            @if (editingTicket) {
+
+              <h1>
+                Modifier le ticket #{{ editingTicket.id }}
+              </h1>
+
+              <p>
+                Modifiez les informations de cette demande de maintenance.
+              </p>
+
+            } @else {
+
+              <h1>
+                Nouveau ticket
+              </h1>
+
+              <p>
+                Créez une nouvelle demande de maintenance.
+              </p>
+
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- ERREUR -->
+        <!-- ========================= -->
+
+        @if (error) {
+
+          <div class="error-message form-error">
+
+            {{ error }}
+
+          </div>
+
+        }
+
+
+        <!-- ========================= -->
+        <!-- FORMULAIRE -->
+        <!-- ========================= -->
+
+        <div class="form-body">
+
+          <!-- TITRE -->
+
+          <div class="form-group">
+
+            <label for="titre">
+
+              Titre <span>*</span>
+
+            </label>
+
+            <input
+              id="titre"
+              type="text"
+              [(ngModel)]="nouveauTicket.titre"
+              [disabled]="creating || updating"
+              placeholder="Ex : Erreur de connexion">
+
+          </div>
+
+
+          <!-- DESCRIPTION -->
+
+          <div class="form-group">
+
+            <label for="description">
+
+              Description <span>*</span>
+
+            </label>
+
+            <textarea
+              id="description"
+              rows="6"
+              [(ngModel)]="nouveauTicket.description"
+              [disabled]="creating || updating"
+              placeholder="Décrivez clairement le problème rencontré..."></textarea>
+
+          </div>
+
+
+          <!-- STATUT + PRIORITÉ -->
+
+          <div class="form-row">
+
+            <!-- STATUT -->
+
+            <div class="form-group">
+
+              <label for="statut">
+
+                Statut
+
+              </label>
+
+              <select
+                id="statut"
+                [(ngModel)]="nouveauTicket.statut"
+                [disabled]="creating || updating">
+
+                <option value="Nouveau">
+                  Nouveau
+                </option>
+
+                <option value="En cours">
+                  En cours
+                </option>
+
+                <option value="Résolu">
+                  Résolu
+                </option>
+
+                <option value="Clôturé">
+                  Clôturé
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- PRIORITÉ -->
+
+            <div class="form-group">
+
+              <label for="priorite">
+
+                Priorité
+
+              </label>
+
+              <select
+                id="priorite"
+                [(ngModel)]="nouveauTicket.priorite"
+                [disabled]="creating || updating">
+
+                <option value="Basse">
+                  Basse
+                </option>
+
+                <option value="Moyenne">
+                  Moyenne
+                </option>
+
+                <option value="Haute">
+                  Haute
+                </option>
+
+                <option value="Critique">
+                  Critique
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- PIED DU FORMULAIRE -->
+        <!-- ========================= -->
+
+        <div class="form-footer">
+
+          <button
+            type="button"
+            class="btn-secondary"
+            [disabled]="creating || updating"
+            (click)="fermerFormulaire()">
+
+            Annuler
+
+          </button>
+
+
+          <!-- ========================= -->
+          <!-- MODIFICATION -->
+          <!-- ========================= -->
+
+          @if (editingTicket) {
+
+            <button
+              type="button"
+              class="btn-primary"
+              [disabled]="updating"
+              (click)="enregistrerModification()">
+
+              @if (updating) {
+
+                <span class="button-spinner"></span>
+
+                Modification...
+
+              } @else {
+
+                ✏️ Enregistrer les modifications
+
+              }
+
+            </button>
+
+          }
+
+
+          <!-- ========================= -->
+          <!-- CRÉATION -->
+          <!-- ========================= -->
+
+          @else {
+
+            <button
+              type="button"
+              class="btn-primary"
+              [disabled]="creating"
+              (click)="creerTicket()">
+
+              @if (creating) {
+
+                <span class="button-spinner"></span>
+
+                Création...
+
+              } @else {
+
+                + Créer le ticket
+
+              }
+
+            </button>
+
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- ===================================================== -->
+  <!-- VUE DÉTAILS -->
+  <!-- ===================================================== -->
+
+  @if (showDetails && selectedTicket) {
+
+    <div class="form-page">
+
+      <!-- ========================= -->
+      <!-- RETOUR -->
+      <!-- ========================= -->
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="fermerDetails()">
+
+        ← Retour aux tickets
+
+      </button>
+
+
+      <!-- ========================= -->
+      <!-- CARTE DÉTAILS -->
+      <!-- ========================= -->
+
+      <div class="ticket-form-card">
+
+        <!-- EN-TÊTE -->
+
+        <div class="form-header">
+
+          <div>
+
+            <h1>
+              Détails du ticket #{{ selectedTicket.id }}
+            </h1>
+
+            <p>
+              Informations complètes de la demande de maintenance.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- INFORMATIONS -->
+        <!-- ========================= -->
+
+        <div class="form-body">
+
+          <!-- TITRE -->
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              Titre
+            </span>
+
+            <strong>
+              {{ selectedTicket.titre }}
+            </strong>
+
+          </div>
+
+
+          <!-- DESCRIPTION -->
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              Description
+            </span>
+
+            <p>
+              {{ selectedTicket.description }}
+            </p>
+
+          </div>
+
+
+          <!-- STATUT + PRIORITÉ -->
+
+          <div class="form-row">
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Statut
+              </span>
+
+              <span class="badge status-badge">
+
+                {{ selectedTicket.statut }}
+
+              </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Priorité
+              </span>
+
+              <span class="badge priority-badge">
+
+                {{ selectedTicket.priorite }}
+
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- DATES -->
+
+          <div class="form-row">
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Date de création
+              </span>
+
+              <strong>
+
+                {{ selectedTicket.created_at | date:'dd/MM/yyyy HH:mm' }}
+
+              </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Dernière modification
+              </span>
+
+              <strong>
+
+                {{ selectedTicket.updated_at | date:'dd/MM/yyyy HH:mm' }}
+
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- ACTIONS -->
+        <!-- ========================= -->
+
+        <div class="form-footer">
+
+          <button
+            type="button"
+            class="btn-secondary"
+            (click)="fermerDetails()">
+
+            Retour
+
+          </button>
+
+
+          <button
+            type="button"
+            class="btn-primary"
+            (click)="modifierTicket(selectedTicket)">
+
+            ✏️ Modifier
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

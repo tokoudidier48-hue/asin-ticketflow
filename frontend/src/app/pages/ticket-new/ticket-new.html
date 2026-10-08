@@ -1,0 +1,108 @@
+<div class="ticket-page">
+
+  <div class="ticket-header">
+    <div>
+      <h1>Nouveau ticket</h1>
+      <p>Créez un nouveau ticket pour suivre une demande ou un incident.</p>
+    </div>
+
+    <a routerLink="/tickets" class="btn-secondary">
+      ← Retour aux tickets
+    </a>
+  </div>
+
+  <div class="ticket-card">
+
+    @if (errorMessage) {
+      <div class="error-message">
+        {{ errorMessage }}
+      </div>
+    }
+
+    <form (ngSubmit)="onSubmit()" #ticketForm="ngForm">
+
+      <div class="form-group">
+        <label for="titre">Titre</label>
+
+        <input
+          id="titre"
+          name="titre"
+          type="text"
+          [(ngModel)]="ticket.titre"
+          required
+          minlength="3"
+          placeholder="Ex. Problème de connexion"
+        >
+
+        <small>
+          Le titre doit contenir au moins 3 caractères.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="ticket.description"
+          required
+          rows="6"
+          placeholder="Décrivez le problème ou la demande..."
+        ></textarea>
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="priorite">Priorité</label>
+
+          <select
+            id="priorite"
+            name="priorite"
+            [(ngModel)]="ticket.priorite"
+          >
+            <option value="low">Basse</option>
+            <option value="medium">Moyenne</option>
+            <option value="high">Haute</option>
+            <option value="urgent">Urgente</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="statut">Statut</label>
+
+          <select
+            id="statut"
+            name="statut"
+            [(ngModel)]="ticket.statut"
+          >
+            <option value="open">Ouvert</option>
+            <option value="in_progress">En cours</option>
+            <option value="closed">Fermé</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+
+        <a routerLink="/tickets" class="btn-secondary">
+          Annuler
+        </a>
+
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="ticketForm.invalid || isLoading"
+        >
+          {{ isLoading ? 'Création...' : 'Créer le ticket' }}
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

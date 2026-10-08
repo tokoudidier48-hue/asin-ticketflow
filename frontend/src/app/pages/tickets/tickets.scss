@@ -1,0 +1,1220 @@
+/* ========================================= */
+/* PAGE DES TICKETS */
+/* ========================================= */
+
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.tickets-page {
+  min-height: 100vh;
+  padding: 38px 42px 40px;
+  box-sizing: border-box;
+
+  background: #f4f7fb;
+  color: #172033;
+}
+
+
+/* ========================================= */
+/* EN-TÊTE */
+/* ========================================= */
+
+.page-header {
+  width: min(1400px, 100%);
+  margin: 0 auto 28px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+.page-header h1 {
+  margin: 0;
+
+  color: #162033;
+
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.page-header p {
+  margin: 8px 0 0;
+
+  color: #718096;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+/* ========================================= */
+/* BOUTON PRINCIPAL */
+/* ========================================= */
+
+.btn-primary {
+  min-height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 19px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #173f8a;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 6px 16px rgba(23, 63, 138, 0.18);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #12336f;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 9px 20px rgba(23, 63, 138, 0.22);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* ========================================= */
+/* MESSAGES */
+/* ========================================= */
+
+.error-message {
+  width: min(1400px, 100%);
+
+  margin: 0 auto 20px;
+
+  padding: 14px 18px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #f1caca;
+  border-radius: 10px;
+
+  background: #fff8f8;
+
+  color: #c53030;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.success-message {
+  width: min(1400px, 100%);
+
+  margin: 0 auto 20px;
+
+  padding: 14px 18px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #b7e4c7;
+  border-radius: 10px;
+
+  background: #f0fff4;
+
+  color: #18794e;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* ========================================= */
+/* STATISTIQUES */
+/* ========================================= */
+
+.stats {
+  width: min(1400px, 100%);
+
+  margin: 0 auto 28px;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.stat-card {
+  min-height: 105px;
+
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #e5eaf1;
+
+  border-radius: 13px;
+
+  box-shadow: 0 4px 16px rgba(20, 30, 50, 0.035);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 7px 20px rgba(20, 30, 50, 0.07);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.stat-card:nth-child(1) .stat-icon {
+  background: #eaf1ff;
+  color: #2859a5;
+}
+
+.stat-card:nth-child(2) .stat-icon {
+  background: #e9f8f0;
+  color: #1d8a55;
+}
+
+.stat-card:nth-child(3) .stat-icon {
+  background: #fff4df;
+  color: #bd7211;
+}
+
+.stat-card span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #718096;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stat-card strong {
+  display: block;
+
+  color: #172033;
+
+  font-size: 22px;
+  font-weight: 800;
+}
+
+
+/* ========================================= */
+/* SECTION DES TICKETS */
+/* ========================================= */
+
+.tickets-section {
+  width: min(1400px, 100%);
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #e5eaf1;
+
+  border-radius: 14px;
+
+  box-shadow: 0 4px 18px rgba(20, 30, 50, 0.04);
+
+  animation: fadeIn 0.25s ease;
+}
+
+.section-header {
+  min-height: 78px;
+
+  padding: 18px 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+
+  border-bottom: 1px solid #e9edf3;
+}
+
+.section-header h2 {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+
+/* ========================================= */
+/* TABLEAU */
+/* ========================================= */
+
+.tickets-table {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+
+/*
+  IMPORTANT :
+  L'en-tête et les lignes utilisent
+  exactement les mêmes colonnes.
+*/
+
+.table-header,
+.table-row {
+  min-width: 1240px;
+
+  display: grid;
+
+  grid-template-columns:
+    60px
+    minmax(210px, 1.35fr)
+    minmax(260px, 1.8fr)
+    125px
+    120px
+    170px
+    145px;
+
+  align-items: center;
+}
+
+
+/* ========================================= */
+/* EN-TÊTE DU TABLEAU */
+/* ========================================= */
+
+.table-header {
+  background: #f8fafc;
+
+  border-bottom: 1px solid #e5eaf1;
+}
+
+.table-header > div {
+  padding: 14px 16px;
+
+  box-sizing: border-box;
+
+  color: #667085;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 0.5px;
+
+  text-transform: uppercase;
+}
+
+
+/* ========================================= */
+/* LIGNES DU TABLEAU */
+/* ========================================= */
+
+.table-row {
+  min-height: 76px;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #edf0f4;
+
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.table-row:hover {
+  background: #fafcff;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-row > div {
+  min-width: 0;
+
+  padding: 16px;
+
+  box-sizing: border-box;
+
+  color: #667085;
+
+  font-size: 13px;
+}
+
+
+/* ========================================= */
+/* COLONNE ID */
+/* ========================================= */
+
+.col-id {
+  color: #4169a1 !important;
+
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+
+/* ========================================= */
+/* COLONNE TITRE */
+/* ========================================= */
+
+.col-title {
+  min-width: 0;
+
+  overflow: hidden;
+}
+
+.col-title strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: #172033;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  line-height: 1.4;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+
+
+/* ========================================= */
+/* COLONNE DESCRIPTION */
+/* ========================================= */
+
+.col-description {
+  min-width: 0;
+
+  overflow: hidden;
+
+  color: #667085;
+
+  line-height: 1.45;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+
+
+/* ========================================= */
+/* COLONNE STATUT */
+/* ========================================= */
+
+.col-status {
+  white-space: nowrap;
+}
+
+
+/* ========================================= */
+/* COLONNE PRIORITÉ */
+/* ========================================= */
+
+.col-priority {
+  white-space: nowrap;
+}
+
+
+/* ========================================= */
+/* COLONNE DATE */
+/* ========================================= */
+
+.col-date {
+  color: #667085;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+}
+
+
+/* ========================================= */
+/* COLONNE ACTIONS */
+/* ========================================= */
+
+.col-actions {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 7px;
+
+  white-space: nowrap;
+}
+
+
+/* ========================================= */
+/* BOUTONS D'ACTION */
+/* ========================================= */
+
+.btn-action {
+  width: 34px;
+  height: 34px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid transparent;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  font-size: 15px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-action:hover {
+  transform: translateY(-1px);
+}
+
+
+/* ========================================= */
+/* BOUTON DÉTAILS */
+/* ========================================= */
+
+.btn-details {
+  border-color: #cfdcf4;
+
+  background: #f5f8ff;
+
+  color: #2859a5;
+}
+
+.btn-details:hover {
+  border-color: #aebfe2;
+
+  background: #eaf1ff;
+
+  box-shadow: 0 4px 10px rgba(40, 89, 165, 0.12);
+}
+
+
+/* ========================================= */
+/* BOUTON MODIFIER */
+/* ========================================= */
+
+.btn-edit {
+  border-color: #cfe8dc;
+
+  background: #f3fbf6;
+
+  color: #1d8a55;
+}
+
+.btn-edit:hover {
+  border-color: #a9d8bc;
+
+  background: #e7f7ee;
+
+  box-shadow: 0 4px 10px rgba(29, 138, 85, 0.12);
+}
+
+
+/* ========================================= */
+/* BOUTON SUPPRIMER */
+/* ========================================= */
+
+.btn-delete {
+  border-color: #f0cccc;
+
+  background: #fff7f7;
+
+  color: #c53030;
+}
+
+.btn-delete:hover {
+  border-color: #e6aaaa;
+
+  background: #ffeded;
+
+  box-shadow: 0 4px 10px rgba(197, 48, 48, 0.12);
+}
+
+
+/* ========================================= */
+/* BADGES */
+/* ========================================= */
+
+.badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 26px;
+
+  padding: 5px 10px;
+
+  box-sizing: border-box;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+/* ========================================= */
+/* BADGE STATUT */
+/* ========================================= */
+
+.status-badge {
+  background: #eaf1ff;
+
+  color: #2859a5;
+}
+
+
+/* ========================================= */
+/* BADGE PRIORITÉ */
+/* ========================================= */
+
+.priority-badge {
+  border-radius: 6px;
+
+  background: #fff0e6;
+
+  color: #c05621;
+}
+
+
+/* ========================================= */
+/* ÉTAT VIDE */
+/* ========================================= */
+
+.empty-state {
+  padding: 60px 30px;
+
+  text-align: center;
+
+  background: #ffffff;
+}
+
+.empty-icon {
+  width: 54px;
+  height: 54px;
+
+  margin: 0 auto 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #eaf1ff;
+
+  color: #2859a5;
+
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.empty-state h3 {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.empty-state p {
+  margin: 8px 0 20px;
+
+  color: #718096;
+
+  font-size: 14px;
+}
+
+
+/* ========================================= */
+/* PAGE DU FORMULAIRE / DÉTAILS */
+/* ========================================= */
+
+.form-page {
+  width: min(900px, 100%);
+
+  margin: 0 auto;
+
+  animation: fadeIn 0.25s ease;
+}
+
+
+/* ========================================= */
+/* BOUTON RETOUR */
+/* ========================================= */
+
+.back-button {
+  margin-bottom: 20px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #2859a5;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.back-button:hover {
+  color: #173f8a;
+
+  text-decoration: underline;
+}
+
+
+/* ========================================= */
+/* CARTE DU FORMULAIRE / DÉTAILS */
+/* ========================================= */
+
+.ticket-form-card {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #e5eaf1;
+
+  border-radius: 14px;
+
+  box-shadow: 0 6px 24px rgba(20, 30, 50, 0.06);
+}
+
+
+/* ========================================= */
+/* EN-TÊTE DU FORMULAIRE */
+/* ========================================= */
+
+.form-header {
+  padding: 28px 30px;
+
+  border-bottom: 1px solid #e9edf3;
+
+  background: #ffffff;
+}
+
+.form-header h1 {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.form-header p {
+  margin: 7px 0 0;
+
+  color: #718096;
+
+  font-size: 14px;
+}
+
+
+/* ========================================= */
+/* CORPS DU FORMULAIRE */
+/* ========================================= */
+
+.form-body {
+  padding: 30px;
+}
+
+
+/* ========================================= */
+/* GROUPES DU FORMULAIRE */
+/* ========================================= */
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #344054;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-group label span {
+  color: #d92d20;
+}
+
+
+/* ========================================= */
+/* CHAMPS */
+/* ========================================= */
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 12px 14px;
+
+  border: 1px solid #d9dee7;
+
+  border-radius: 9px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #172033;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input {
+  height: 46px;
+}
+
+.form-group textarea {
+  min-height: 135px;
+
+  resize: vertical;
+
+  line-height: 1.5;
+}
+
+.form-group select {
+  height: 46px;
+
+  cursor: pointer;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #98a2b3;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #2859a5;
+
+  box-shadow: 0 0 0 3px rgba(40, 89, 165, 0.10);
+}
+
+
+/* ========================================= */
+/* STATUT + PRIORITÉ */
+/* ========================================= */
+
+.form-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+}
+
+
+/* ========================================= */
+/* DÉTAILS DU TICKET */
+/* ========================================= */
+
+.detail-item {
+  margin-bottom: 24px;
+
+  padding: 18px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #e7ebf1;
+
+  border-radius: 10px;
+
+  background: #fafbfd;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #718096;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.4px;
+}
+
+.detail-item strong {
+  display: block;
+
+  color: #172033;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.detail-item p {
+  margin: 0;
+
+  color: #475467;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+
+  white-space: pre-wrap;
+}
+
+
+/* ========================================= */
+/* PIED DU FORMULAIRE */
+/* ========================================= */
+
+.form-footer {
+  display: flex;
+
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 20px 30px;
+
+  border-top: 1px solid #e9edf3;
+
+  background: #fafbfd;
+}
+
+
+/* ========================================= */
+/* BOUTON SECONDAIRE */
+/* ========================================= */
+
+.btn-secondary {
+  min-height: 44px;
+
+  padding: 0 18px;
+
+  border: 1px solid #d0d5dd;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #344054;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #f8fafc;
+
+  border-color: #b8c0cc;
+
+  transform: translateY(-1px);
+}
+
+
+/* ========================================= */
+/* ERREUR DANS LE FORMULAIRE */
+/* ========================================= */
+
+.form-error {
+  width: auto;
+
+  margin: 0 30px 20px;
+}
+
+
+/* ========================================= */
+/* ANIMATION */
+/* ========================================= */
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+
+}
+
+
+/* ========================================= */
+/* RESPONSIVE TABLETTE */
+/* ========================================= */
+
+@media (max-width: 1000px) {
+
+  .tickets-page {
+    padding: 30px 24px 35px;
+  }
+
+  .page-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* ========================================= */
+/* RESPONSIVE MOBILE */
+/* ========================================= */
+
+@media (max-width: 650px) {
+
+  .tickets-page {
+    padding: 22px 12px 30px;
+  }
+
+
+  /* En-tête */
+
+  .page-header {
+    margin-bottom: 22px;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .page-header p {
+    font-size: 13px;
+  }
+
+  .page-header .btn-primary {
+    width: 100%;
+  }
+
+
+  /* Statistiques */
+
+  .stats {
+    gap: 12px;
+
+    margin-bottom: 20px;
+  }
+
+  .stat-card {
+    min-height: 90px;
+
+    padding: 16px;
+  }
+
+  .stat-icon {
+    width: 42px;
+    height: 42px;
+
+    font-size: 18px;
+  }
+
+  .stat-card strong {
+    font-size: 20px;
+  }
+
+
+  /* Section */
+
+  .section-header {
+    min-height: 65px;
+
+    padding: 16px;
+  }
+
+  .section-header h2 {
+    font-size: 16px;
+  }
+
+
+  /*
+    Le tableau conserve sa largeur minimale.
+    Sur petit écran, l'utilisateur peut
+    faire défiler horizontalement.
+  */
+
+  .tickets-table {
+    overflow-x: auto;
+  }
+
+
+  /* Formulaire */
+
+  .form-page {
+    width: 100%;
+  }
+
+  .form-header {
+    padding: 22px 18px;
+  }
+
+  .form-header h1 {
+    font-size: 21px;
+  }
+
+  .form-body {
+    padding: 22px 18px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+  .form-footer {
+    padding: 18px;
+
+    flex-direction: column-reverse;
+
+    align-items: stretch;
+  }
+
+  .form-footer button {
+    width: 100%;
+  }
+
+  .form-error {
+    margin: 0 18px 20px;
+  }
+
+  .empty-state {
+    padding: 45px 20px;
+  }
+
+
+  /* Détails */
+
+  .detail-item {
+    padding: 15px;
+  }
+
+
+  /* Actions */
+
+  .col-actions {
+    gap: 6px;
+  }
+
+  .btn-action {
+    width: 32px;
+    height: 32px;
+
+    font-size: 14px;
+  }
+
+}

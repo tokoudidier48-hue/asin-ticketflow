@@ -1,0 +1,35 @@
+# Laravel
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Laravel generated files
+backend/storage/logs/*
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/bootstrap/cache/*
+
+# Dependencies
+backend/vendor/
+frontend/node_modules/
+
+# Angular build
+frontend/dist/
+
+# Environment files
+.env
+.env.*
+
+# OS / IDE
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+!backend/.env.example
+
+typescript/node_modules/
