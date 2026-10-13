@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 interface LoginResponse {
   message: string;
@@ -18,7 +19,7 @@ interface LoginResponse {
 export class AuthService {
   private http = inject(HttpClient);
 
-  private apiUrl = '/api';
+  private apiUrl = environment.apiUrl;
 
   login(email: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(
