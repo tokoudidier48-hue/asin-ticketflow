@@ -94,3 +94,16 @@ button:disabled {
     color: white;
   }
 }
+
+.forgot-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

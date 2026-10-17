@@ -19,6 +19,15 @@ export interface AuthUser {
   email: string;
 }
 
+export interface MessageResponse {
+  message: string;
+}
+
+export interface VerifyOtpResponse {
+  message: string;
+  reset_token: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -81,7 +90,6 @@ export class AuthService {
   }
 
   // Révoque le jeton côté Laravel, puis déconnecte localement.
-  // Le nettoyage local a lieu même si l'appel API échoue.
   logoutFromServer(): Observable<unknown> {
     return this.http.post(
       `${this.apiUrl}/logout`,
@@ -90,6 +98,44 @@ export class AuthService {
     ).pipe(
       catchError(() => of(null)),
       finalize(() => this.logout())
+    );
+  }
+
+  // =========================================
+  // MOT DE PASSE OUBLIÉ
+  // =========================================
+
+  forgotPassword(email: string): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(
+      `${this.apiUrl}/forgot-password`,
+      { email },
+      { headers: { Accept: 'application/json' } }
+    );
+  }
+
+  verifyOtp(email: string, code: string): Observable<VerifyOtpResponse> {
+    return this.http.post<VerifyOtpResponse>(
+      `${this.apiUrl}/verify-otp`,
+      { email, code },
+      { headers: { Accept: 'application/json' } }
+    );
+  }
+
+  resetPassword(
+    email: string,
+    resetToken: string,
+    password: string,
+    passwordConfirmation: string
+  ): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(
+      `${this.apiUrl}/reset-password`,
+      {
+        email,
+        reset_token: resetToken,
+        password,
+        password_confirmation: passwordConfirmation
+      },
+      { headers: { Accept: 'application/json' } }
     );
   }
 }
