@@ -1,0 +1,45 @@
+<div class="user-menu">
+
+  <button
+    type="button"
+    class="user-button"
+    (click)="toggle()"
+    [attr.aria-expanded]="open()"
+    aria-haspopup="true"
+  >
+    <span class="avatar">{{ initial }}</span>
+    <span class="user-button-label">Mon compte</span>
+  </button>
+
+  @if (open()) {
+    <div class="user-dropdown" role="menu">
+
+      <div class="user-info">
+        <span class="avatar avatar-large">{{ initial }}</span>
+
+        <div class="user-details">
+          <span class="detail-label">Nom</span>
+          <strong>{{ user?.name }}</strong>
+
+          <span class="detail-label">E-mail</span>
+          <strong class="email">{{ user?.email }}</strong>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="logout-button"
+        (click)="logout()"
+        [disabled]="loggingOut()"
+      >
+        @if (loggingOut()) {
+          Déconnexion...
+        } @else {
+          Se déconnecter
+        }
+      </button>
+
+    </div>
+  }
+
+</div>

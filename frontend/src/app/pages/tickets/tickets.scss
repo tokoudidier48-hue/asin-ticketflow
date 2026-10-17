@@ -51,6 +51,18 @@
   line-height: 1.5;
 }
 
+/* ========================================= */
+/* MENU DU COMPTE */
+/* ========================================= */
+
+.top-bar {
+  width: min(1400px, 100%);
+
+  margin: 0 auto 22px;
+
+  display: flex;
+  justify-content: flex-start;
+}
 
 /* ========================================= */
 /* BOUTON PRINCIPAL */

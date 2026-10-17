@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, finalize, catchError, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 interface LoginResponse {
@@ -11,6 +11,12 @@ interface LoginResponse {
     email: string;
   };
   token: string;
+}
+
+export interface AuthUser {
+  id: number;
+  name: string;
+  email: string;
 }
 
 @Injectable({
@@ -37,6 +43,20 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  getUser(): AuthUser | null {
+    const raw = localStorage.getItem('user');
+
+    if (!raw) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(raw) as AuthUser;
+    } catch {
+      return null;
+    }
+  }
+
   getAuthHeaders(): HttpHeaders {
     let headers = new HttpHeaders({
       Accept: 'application/json'
@@ -54,8 +74,22 @@ export class AuthService {
     return !!this.getToken();
   }
 
+  // Déconnexion locale (supprime le jeton du navigateur)
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+  }
+
+  // Révoque le jeton côté Laravel, puis déconnecte localement.
+  // Le nettoyage local a lieu même si l'appel API échoue.
+  logoutFromServer(): Observable<unknown> {
+    return this.http.post(
+      `${this.apiUrl}/logout`,
+      {},
+      { headers: this.getAuthHeaders() }
+    ).pipe(
+      catchError(() => of(null)),
+      finalize(() => this.logout())
+    );
   }
 }

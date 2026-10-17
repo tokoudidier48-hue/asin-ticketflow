@@ -12,10 +12,11 @@ import {
 } from '../../services/ticket';
 
 import { AuthService } from '../../services/auth';
+import { UserMenu } from '../../components/user-menu/user-menu';
 
 @Component({
   selector: 'app-tickets',
-  imports: [DatePipe, FormsModule],
+  imports: [DatePipe, FormsModule, UserMenu],
   templateUrl: './tickets.html',
   styleUrl: './tickets.scss'
 })
