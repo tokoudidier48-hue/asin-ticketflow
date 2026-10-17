@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth';
   selector: 'app-forgot-password',
   imports: [FormsModule, RouterLink],
   templateUrl: './forgot-password.html',
-  styleUrls: ['../register/register.css', './forgot-password.css']
+  styleUrls: ['../register/register.css', './forgot-password.scss']
 })
 export class ForgotPassword implements OnDestroy {
   private authService = inject(AuthService);
