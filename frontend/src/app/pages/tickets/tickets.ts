@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
@@ -24,6 +24,7 @@ export class Tickets implements OnInit {
   private ticketService = inject(TicketService);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   // =========================================
   // LISTE DES TICKETS
@@ -123,6 +124,8 @@ export class Tickets implements OnInit {
           console.log(
             'FIN DU CHARGEMENT DES TICKETS'
           );
+
+          this.cdr.markForCheck();
         })
       )
       .subscribe({
@@ -327,6 +330,8 @@ export class Tickets implements OnInit {
           console.log(
             'FIN DE LA REQUÊTE DE CRÉATION'
           );
+
+          this.cdr.markForCheck();
 
         })
 
@@ -603,6 +608,8 @@ export class Tickets implements OnInit {
             'FIN DE LA REQUÊTE DE MODIFICATION'
           );
 
+          this.cdr.markForCheck();
+
         })
 
       )
@@ -758,6 +765,15 @@ export class Tickets implements OnInit {
 
     this.ticketService
       .deleteTicket(ticket.id)
+      .pipe(
+
+        finalize(() => {
+
+          this.cdr.markForCheck();
+
+        })
+
+      )
       .subscribe({
 
         next: () => {
