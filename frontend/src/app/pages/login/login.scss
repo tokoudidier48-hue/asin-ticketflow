@@ -8,6 +8,7 @@
 
 .login-card {
   width: 400px;
+  max-width: 92%;
   padding: 35px;
   background: white;
   border-radius: 12px;
@@ -60,4 +61,36 @@ button:disabled {
   padding: 10px;
   border-radius: 6px;
   background: #ffe5e5;
+}
+
+.register-section {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+
+  p {
+    margin: 0 0 12px;
+    color: #666;
+    font-size: 14px;
+  }
+}
+
+.register-link {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #2563eb;
+  border-radius: 6px;
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: #2563eb;
+    color: white;
+  }
 }

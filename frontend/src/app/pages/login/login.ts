@@ -1,17 +1,18 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
 export class Login {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   email = '';
   password = '';
@@ -33,12 +34,14 @@ export class Login {
         console.log('LOGIN SUCCESS:', response);
 
         this.loading = false;
+        this.cdr.markForCheck();
 
         this.router.navigate(['/tickets']).then((success) => {
           console.log('NAVIGATION RESULT:', success);
 
           if (!success) {
             this.error = 'Impossible d’ouvrir la page des tickets.';
+            this.cdr.markForCheck();
           }
         });
       },
@@ -59,6 +62,8 @@ export class Login {
         } else {
           this.error = 'Une erreur est survenue pendant la connexion.';
         }
+
+        this.cdr.markForCheck();
       }
     });
   }
